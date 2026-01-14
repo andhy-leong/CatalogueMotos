@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalogue Motos</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Catalogue de Motos 🏍️</h1>
+      <p>Données issues de la base Cassandra</p>
+      <a id="addMoto" href="addMoto.html"> + </a>
+    </header>
+
+    <main>
+      <section class="controls-container">
+        <form id="filter-form" class="filter-form">
+          <h3>🔍 Filtrer par</h3>
+
+          <div class="form-group">
+            <label for="marque">Marque :</label>
+            <input
+              type="text"
+              id="marque"
+              name="marque"
+              placeholder="Ex: Yamaha"
+            />
+          </div>
+          <div class="form-group hidden" id="nom-group">
+            <label for="nom">Nom (Modèle) :</label>
+            <select id="nom" name="nom">
+              <option value="">Tous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Année :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="annee_min"
+                name="annee_min"
+                placeholder="Min (ex: 2015)"
+              />
+              <span class="range-separator">à</span>
+              <input
+                type="number"
+                id="annee_max"
+                name="annee_max"
+                placeholder="Max (ex: 2024)"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bridable_a2">Bridable A2 :</label>
+            <select id="bridable_a2" name="bridable_a2">
+              <option value="">Tous</option>
+              <option value="true">Oui</option>
+              <option value="false">Non</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="moteur">Moteur :</label>
+            <select id="moteur" name="moteur">
+              <option value="">Tous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Cylindrée (cc) :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="cylindree_min"
+                name="cylindree_min"
+                placeholder="Min"
+                min="0"
+              />
+              <input
+                type="number"
+                id="cylindree_max"
+                name="cylindree_max"
+                placeholder="Max"
+                min="0"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Poids (kg) :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="poids_min"
+                name="poids_min"
+                placeholder="Min"
+                min="0"
+              />
+              <input
+                type="number"
+                id="poids_max"
+                name="poids_max"
+                placeholder="Max"
+                min="0"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Puissance DNI (CV) :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="puissance_dni_cv_min"
+                name="puissance_dni_cv_min"
+                placeholder="Min CV"
+                min="0"
+              />
+              <input
+                type="number"
+                id="puissance_dni_cv_max"
+                name="puissance_dni_cv_max"
+                placeholder="Max CV"
+                min="0"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Puissance kW :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="puissance_kw_min"
+                name="puissance_kw_min"
+                placeholder="Min kW"
+                min="0"
+              />
+              <input
+                type="number"
+                id="puissance_kw_max"
+                name="puissance_kw_max"
+                placeholder="Max kW"
+                min="0"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Puissance Fiscale :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="puissance_fiscale_min"
+                name="puissance_fiscale_min"
+                placeholder="Min CV Fisc."
+                min="0"
+              />
+              <input
+                type="number"
+                id="puissance_fiscale_max"
+                name="puissance_fiscale_max"
+                placeholder="Max CV Fisc."
+                min="0"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Hauteur Selle (mm) :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="hauteur_selle_min"
+                name="hauteur_selle_min"
+                placeholder="Min"
+                min="0"
+              />
+              <input
+                type="number"
+                id="hauteur_selle_max"
+                name="hauteur_selle_max"
+                placeholder="Max"
+                min="0"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Longueur (mm) :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="longueur_min"
+                name="longueur_min"
+                placeholder="Min"
+                min="0"
+              />
+              <input
+                type="number"
+                id="longueur_max"
+                name="longueur_max"
+                placeholder="Max"
+                min="0"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Nb Rapports :</label>
+            <div class="range-group">
+              <input
+                type="number"
+                id="nombre_rapports_min"
+                name="nombre_rapports_min"
+                placeholder="Min"
+                min="1"
+              />
+              <input
+                type="number"
+                id="nombre_rapports_max"
+                name="nombre_rapports_max"
+                placeholder="Max"
+                min="1"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="suspension_avant">Suspension Avant :</label>
+            <select id="suspension_avant" name="suspension_avant">
+              <option value="">Tous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="suspension_arriere">Suspension Arrière :</label>
+            <select id="suspension_arriere" name="suspension_arriere">
+              <option value="">Tous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="frein_avant">Frein Avant :</label>
+            <select id="frein_avant" name="frein_avant">
+              <option value="">Tous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="frein_arriere">Frein Arrière :</label>
+            <select id="frein_arriere" name="frein_arriere">
+              <option value="">Tous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="moteur_nb_cylindres">Nb Cylindres :</label>
+            <select id="moteur_nb_cylindres" name="moteur_nb_cylindres">
+              <option value="">Tous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="moteur_transmission">Transmission :</label>
+            <select id="moteur_transmission" name="moteur_transmission">
+              <option value="">Tous</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="type">Catégorie (Type) :</label>
+            <select id="type" name="type">
+              <option value="">Toutes</option>
+            </select>
+          </div>
+          <div class="form-group hidden" id="moteurt_type_group">
+            <label for="moteurt_type">Type Moteur :</label>
+            <select id="moteurt_type" name="moteurt_type">
+              <option value="">Tous</option>
+              <option value="4t">4T</option>
+              <option value="2t">2T</option>
+            </select>
+          </div>
+
+          <div class="form-buttons">
+            <button type="submit">Appliquer</button>
+            <button type="reset">Réinitialiser</button>
+          </div>
+        </form>
+
+        <div class="sort-container">
+          <h3>📊 Trier par</h3>
+          <select id="sort-select">
+            <option value="default">Par défaut</option>
+            <option value="prix_asc">Prix (Croissant)</option>
+            <option value="prix_desc">Prix (Décroissant)</option>
+            <option value="annee_asc">Année (Croissant)</option>
+            <option value="annee_desc">Année (Décroissant)</option>
+            <option value="vitesse_max_asc">Vitesse Max (Croissant)</option>
+            <option value="vitesse_max_desc">Vitesse Max (Décroissant)</option>
+            <option value="temps_0_100_asc">0-100km/h (Croissant)</option>
+            <option value="temps_0_100_desc">0-100km/h (Décroissant)</option>
+            <option value="conso_carburant_asc">
+              Consommation (Croissant)
+            </option>
+            <option value="conso_carburant_desc">
+              Consommation (Décroissant)
+            </option>
+            <option value="capacite_reservoir_asc">
+              Réservoir (Croissant)
+            </option>
+            <option value="capacite_reservoir_desc">
+              Réservoir (Décroissant)
+            </option>
+            <option value="cylindree_desc">Cylindrée (Décroissant)</option>
+            <option value="cylindree_asc">Cylindrée (Croissant)</option>
+            <option value="poids_desc">Poids (Décroissant)</option>
+            <option value="poids_asc">Poids (Croissant)</option>
+            <option value="hauteur_selle_desc">
+              Hauteur Selle (Décroissant)
+            </option>
+            <option value="hauteur_selle_asc">Hauteur Selle (Croissant)</option>
+            <option value="longueur_desc">Longueur (Décroissant)</option>
+            <option value="longueur_asc">Longueur (Croissant)</option>
+            <option value="nombre_rapports_desc">
+              Nb Rapports (Décroissant)
+            </option>
+            <option value="nombre_rapports_asc">Nb Rapports (Croissant)</option>
+            <option value="puissance_dni_cv_desc">
+              Puissance CV (Décroissant)
+            </option>
+            <option value="puissance_dni_cv_asc">
+              Puissance CV (Croissant)
+            </option>
+            <option value="puissance_kw_desc">
+              Puissance kW (Décroissant)
+            </option>
+            <option value="puissance_kw_asc">Puissance kW (Croissant)</option>
+            <option value="puissance_fiscale_desc">
+              Puissance Fisc. (Décroissant)
+            </option>
+            <option value="puissance_fiscale_asc">
+              Puissance Fisc. (Croissant)
+            </option>
+          </select>
+        </div>
+      </section>
+      <section id="motos-list-container">
+        <h2>Nos Motos</h2>
+        <div id="motos-list"></div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="deleteMoto.js"></script>
+  </body>
+</html>

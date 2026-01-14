@@ -1,0 +1,20 @@
+{
+  "name": "api-motos",
+  "version": "1.0.0",
+  "description": "API pour gérer les données de motos avec Cassandra et Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "import-data": "node import_json.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cassandra-driver": "^4.6.0",
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "stream-json": "^1.7.0",
+    "uuid": "^9.0.1",
+    "neo4j-driver": "^5.21.0"
+  }
+}
